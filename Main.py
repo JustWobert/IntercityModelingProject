@@ -27,7 +27,7 @@ class Application(tk.Tk):
         file_path = self.file_path_entry.get()
         if not file_path:
             file_path = "UKRailStationPopPlace.csv"
-            print("File not provided [code 309] : using default data")
+            self.result_text.insert(tk.END, "File not provided [code 309] : using default data")
         elif not os.path.isfile(file_path):
             self.result_text.delete(1.0, tk.END)
             self.result_text.insert(tk.END, "File Read Error [code 404] : invalid file path. are you sure the file location is correct?")
