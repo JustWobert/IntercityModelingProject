@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 import FileReader
+import numpy as np
 
 class Application(tk.Tk):
     def __init__(self):
@@ -34,9 +35,11 @@ class Application(tk.Tk):
 
         Pairs = FileReader.FileReader(file_path)
         pairs_list = Pairs.read_file()
-
+        outputFile = np.array(pairs_list)
+        
         if Pairs.listOfPairs is not None:
             self.result_text.delete(1.0, tk.END)
+            np.savetxt("PairsList.csv", outputFile, delimiter=",", fmt="%s")
             self.result_text.insert(tk.END, pairs_list)
         else:
             self.result_text.delete(1.0, tk.END)
