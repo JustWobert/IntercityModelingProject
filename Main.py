@@ -40,7 +40,7 @@ class Application(tk.Tk):
         if Pairs.listOfPairs is not None:
             self.result_text.delete(1.0, tk.END)
             np.savetxt("PairsList.csv", outputFile, delimiter=",", fmt="%s")
-            self.result_text.insert(tk.END, pairs_list)
+            self.result_text.insert(tk.END, "File saved successfully.")
         else:
             self.result_text.delete(1.0, tk.END)
             self.result_text.insert(tk.END, "File Read Error [code 400] : are you sure the file isn't empty?")
