@@ -6,7 +6,7 @@ class LongLatToKmConverter:
     #testValue2 = [53.75297338, -2.369548102]
 
 
-    def convert(lat1, lon1, lat2, lon2):
+    def convert(self, lat1, lon1, lat2, lon2):
         location1 = [radians(lat1), radians(lon1)]
         location2 = [radians(lat2), radians(lon2)]
 

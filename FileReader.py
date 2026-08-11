@@ -1,16 +1,35 @@
 import os
 import LongLatToKmConverter
+import math
 
 class FileReader:
     def __init__(self, file_path):
         self.file_path = file_path
         self.listOfPairs = []
+        
 
     def read_file(self):
         try:
             with open(self.file_path, 'r') as file:
                 content = file.read()
-                return content
+                getTownCount = len(content.splitlines())
+                line1 = 0
+                line2 = 0
+        
+                while line1 < getTownCount - 1:
+                    line2 = line1 + 1
+                    #print(f"Processing Town {line1}")
+                    line1Data = content.splitlines()[line1].split(",")
+                    while line2 < getTownCount:
+                        line2Data = content.splitlines()[line2].split(",")
+                        pairPop = int(line1Data[1]) + int(line2Data[1])
+                        pairDist = LongLatToKmConverter.LongLatToKmConverter().convert(float(line1Data[2]), float(line1Data[3]), float(line2Data[2]), float(line2Data[3]))
+                        self.listOfPairs.append([line1Data[0], line2Data[0], pairPop, pairDist])
+                        print(f"{line1Data[0]} to {line2Data[0]}: Combined Population = {pairPop}, Distance = {pairDist}")
+        
+                        line2 += 1
+                    line1 += 1
+                return self.listOfPairs
         except FileNotFoundError:
             print(f"Error: The file {self.file_path} was not found.")
             return None
@@ -18,17 +37,6 @@ class FileReader:
             print(f"An error occurred while reading the file: {e}")
             return None
 
-        getTownCount = len(content.splitlines())
-        line1 = 0
-        line2 = 1
 
-        while line1 < getTownCount - 1:
-            line1Data = content.splitlines()[line1].split(",")
-            while line2 < getTownCount:
-                line2Data = content.splitlines()[line2].split(",")
-                pairPop = toInt(line1Data[1]) + toInt(line2Data[1])
-                pairDist = LongLatToKmConverter.convert(toFloat(line1Data[2]), toFloat(line1Data[3]), toFloat(line2Data[2]), toFloat(line2Data[3]))
-                self.listOfPairs.append([line1Data[0], line2Data[0], pairPop, pairDist])
 
-                line2 += 1
-            line1 += 1
+        
