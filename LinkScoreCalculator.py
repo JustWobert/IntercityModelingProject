@@ -2,7 +2,7 @@ class LinkScoreCalculator:
 
 
     def __init__ (self):
-        with open(weights.txt, 'r') as f:
+        with open('weights.txt', 'r') as f:
             self.weights = [float(line.strip()) for line in f]
             
             self.distanceMinimumWeight = self.weights[0]
@@ -16,7 +16,7 @@ class LinkScoreCalculator:
             self.populationPowerWeight = self.weights[7]
 
     def distance_score(self, distance, minValue, scaleValue, powerModifier, powerValue):
-        return(minValue+scaleValue**(powerModifier+powerValue*distance))
+        return(minValue+scaleValue**(powerModifier-powerValue*distance))
 
     def population_score(self, population, minValue, scaleValue, powerModifier, powerValue):
         return(minValue+scaleValue**(powerModifier+powerValue*population))
